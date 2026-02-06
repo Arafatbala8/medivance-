@@ -8,8 +8,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "dev-secret-key")
 DEBUG = os.getenv("DJANGO_DEBUG", "1") == "1"
+CSRF_TRUSTED_ORIGINS = [
+    "https://medivance-1.onrender.com",
+    "https://medivance.com",
+    "https://www.medivance.com",
+]
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "localhost",
+    "medivance-1.onrender.com",
+    "medivance.com",
+    "www.medivance.com",
+]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
