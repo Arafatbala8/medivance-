@@ -19,4 +19,9 @@ rad.json
 #License-file
 *.flf
 #Test results file
-TestResults.xml
+TestResults.xml.env
+DJANGO_SECRET_KEY=super-secret-key
+DJANGO_DEBUG=0
+DJANGO_ALLOWED_HOSTS=medivance.com,www.medivance.com
+DJANGO_CORS_ALLOWED_ORIGINS=https://www.medivance.com
+CLOUDINARY_URL=cloudinary://xxx
