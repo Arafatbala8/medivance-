@@ -1,5 +1,5 @@
-from pathlib import Path
 import os
+from pathlib import Path
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -9,17 +9,22 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "dev-secret-key")
 DEBUG = os.getenv("DJANGO_DEBUG", "0") == "1"
 
-CSRF_TRUSTED_ORIGINS = [
-    "https://medivance-l63c.onrender.com",
-    "https://medivance.com",
-    "https://www.medivance.com",
-]
+# ---------- IMPORTANT FOR RENDER HTTPS ----------
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+USE_X_FORWARDED_HOST = True
 
-ALLOWED_HOSTS = [
-    "medivance-l63c.onrender.com",
-    "medivance.com",
-    "www.medivance.com",
-]
+# ---------- ALLOWED HOSTS ----------
+ALLOWED_HOSTS = [h.strip() for h in os.getenv("DJANGO_ALLOWED_HOSTS", "").split(",") if h.strip()]
+if DEBUG:
+    ALLOWED_HOSTS += ["127.0.0.1", "localhost"]
+
+# ---------- CSRF TRUSTED ORIGINS ----------
+CSRF_TRUSTED_ORIGINS = [o.strip() for o in os.getenv("DJANGO_CSRF_TRUSTED_ORIGINS", "").split(",") if o.strip()]
+
+# Cookies secure in production
+if not DEBUG:
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
 
 INSTALLED_APPS = [
     "django.contrib.admin",
